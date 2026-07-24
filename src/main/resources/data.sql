@@ -1,6 +1,6 @@
 -- Insert Foods
 INSERT INTO
-    foods(place_to_buy, description, food_name, amount, currency, category, image_url)
+    foods(place_to_buy, description, food_name, price_amount, price_currency, category, image_url)
 VALUES
     ('RESTAURANT',
      'Ez már nem étel, hanem életvitel!.',
