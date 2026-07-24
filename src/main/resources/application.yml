@@ -1,0 +1,67 @@
+app:
+  name: ImagineBar
+  login:
+    max-attempts-per-hour: 10
+  frontend:
+    url: ${APP_FRONTEND_URL}
+  password-reset:
+    token-expiry-minutes: ${PASSWORD_RESET_TOKEN_EXPIRY_MINUTES}
+    max-requests-per-hour: ${PASSWORD_RESET_MAX_REQUESTS_PER_HOUR}
+    cleanup-rate-ms: ${PASSWORD_RESET_CLEANUP_RATE_MS}
+
+
+spring:
+  # Email Configuration
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    transport:
+      protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  # Redis Configuration (for rate limiting)
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: 6379
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 10
+          max-idle: 10
+          min-idle: 1
+
+  # Database Configuration
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:postgres}:5432/restaurant
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  # JPA Configuration
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    defer-datasource-initialization: true
+
+  # SQL Initialization
+  sql:
+    init:
+      mode: never
+
+  # Encoding
+  mvc:
+    charset: UTF-8
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8

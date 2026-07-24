@@ -1,0 +1,26 @@
+app:
+  login:
+    max-attempts-per-hour: 1000
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: always
+
+logging:
+  level:
+    org.springframework.mail: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.boot.autoconfigure: DEBUG
