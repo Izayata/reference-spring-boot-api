@@ -1,0 +1,36 @@
+app:
+  frontend:
+    url: http://localhost:3000
+  password-reset:
+    token-expiry-minutes: 15
+    max-requests-per-hour: 3
+    cleanup-rate-ms: 3600000
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ''
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+      jakarta:
+        persistence:
+          validation:
+            mode: none
+  sql:
+    init:
+      mode: never
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  mail:
+    host: localhost
+    port: 25
+    username: test@test.com
+    password: testpassword

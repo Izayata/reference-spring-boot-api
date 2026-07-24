@@ -1,0 +1,17 @@
+# Gradle specific
+.gradle/
+.idea/
+build/
+bruno/
+postman/
+src/test/
+.git/
+tmp/
+.gitignore
+.env
+*.iml
+*.log
+*.tmp
+
+#Keep only the built jar files
+!build/libs/*.jar

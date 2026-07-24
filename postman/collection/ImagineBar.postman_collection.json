@@ -1,0 +1,2154 @@
+{
+	"info": {
+		"_postman_id": "a0d05441-a1c9-4b68-a02e-fd2c025d556f",
+		"name": "ImagineBar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44258869"
+	},
+	"item": [
+		{
+			"name": "AuthorizedOnly",
+			"item": [
+				{
+					"name": "AccountController",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAuthenticatedUser",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/account/me",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"account",
+												"me"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "UpdatePassword",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "X-CSRF-TOKEN",
+												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"currentPassword\": {\"value\": \"testUser4!\"},\r\n    \"newPasswordDetails\": {\r\n        \"newPassword\": {\"value\": \"newTestUser4!\"},\r\n        \"confirmNewPassword\": {\"value\": \"newTestUser4!\"}\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/v1/account/password",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"account",
+												"password"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "CustomerController",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAllCustomers",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/customers",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"customers"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "UpdateBillingAddress",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "X-CSRF-TOKEN",
+												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"zipCode\": {\"value\": \"4028\"},\r\n    \"city\": {\"value\": \"Debrecen\"},\r\n    \"street\": {\"value\": \"Egyetem sgt\"},\r\n    \"streetNumber\": {\"value\": \"1\"},\r\n    \"floorDoor\": {\"value\": \"fsz/1\"}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/v1/customer/billing-address",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"customer",
+												"billing-address"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateDefaultShippingAddress",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "X-CSRF-TOKEN",
+												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"zipCode\": {\"value\": \"4028\"},\r\n    \"city\": {\"value\": \"Debrecen\"},\r\n    \"street\": {\"value\": \"Egyetem sgt\"},\r\n    \"streetNumber\": {\"value\": \"1\"},\r\n    \"floorDoor\": {\"value\": \"fsz/1\"}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/v1/customer/shipping-address",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"customer",
+												"shipping-address"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdatePersonalDetails",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "X-CSRF-TOKEN",
+												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"firstname\": {\"value\": \"Test\"},\r\n    \"lastname\": {\"value\": \"User\"},\r\n    \"phoneNumber\": {\"value\": \"+36204234442\"}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/v1/customer/personal-details",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"customer",
+												"personal-details"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "FoodController",
+					"item": [
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "CreateFood",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-CSRF-TOKEN",
+												"value": "mxUCb6gugBuJZiRTsVsRIhmY-DPl02ALrYySI6H4KM-w8QpLqCA2WJ4W43qkUBBqgHYlQCj-1VKA61EmnrrwEpGZTf-Iwzl4",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"foodName\": {\r\n        \"value\": \"M\\u00e1kos t\\u00e9szta\"\r\n    },\r\n    \"description\": {\r\n        \"value\": \"M\\u00e1kos t\\u00e9szta r\\u00f6vid le\\u00edr\\u00e1sa.\"\r\n    },\r\n    \"price\": {\r\n        \"amount\": 1900,\r\n        \"currency\": \"HUF\"\r\n    },\r\n    \"placeToBuy\": \"RESTAURANT\",\r\n    \"category\": \"DESSERTS\",\r\n    \"allergens\": [],\r\n    \"ingredients\": [],\r\n    \"imageUrl\": {\r\n        \"value\": \"https://example.com/image.jpg\"\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/v1/foods",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"foods"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "OrderController",
+					"item": [
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "CreateOrder",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-CSRF-TOKEN",
+												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"customer\": {\r\n        \"personalDetails\": {\r\n            \"firstname\": {\r\n                \"value\": \"Test\"\r\n            },\r\n            \"lastname\": {\r\n                \"value\": \"User\"\r\n            },\r\n            \"phoneNumber\": {\r\n                \"value\": \"+36204234442\"\r\n            }\r\n        },\r\n        \"email\": {\r\n            \"value\": \"test@example.com\"\r\n        },\r\n        \"shippingAddress\": {\r\n            \"zipCode\": {\r\n                \"value\": \"4028\"\r\n            },\r\n            \"city\": {\r\n                \"value\": \"Debrecen\"\r\n            },\r\n            \"street\": {\r\n                \"value\": \"Egyetem sgt\"\r\n            },\r\n            \"streetNumber\": {\r\n                \"value\": \"1\"\r\n            },\r\n            \"floorDoor\": {\r\n                \"value\": \"fsz/1\"\r\n            }\r\n        },\r\n        \"billingAddress\": {\r\n            \"zipCode\": {\r\n                \"value\": \"4028\"\r\n            },\r\n            \"city\": {\r\n                \"value\": \"Debrecen\"\r\n            },\r\n            \"street\": {\r\n                \"value\": \"Egyetem sgt\"\r\n            },\r\n            \"streetNumber\": {\r\n                \"value\": \"1\"\r\n            },\r\n            \"floorDoor\": {\r\n                \"value\": \"fsz/1\"\r\n            }\r\n        }\r\n    },\r\n    \"orderItems\": [\r\n        {\r\n            \"foodId\": 1,\r\n            \"quantity\": 2\r\n        }\r\n    ],\r\n    \"paymentType\": \"CASH\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/v1/orders",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"orders"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetOrderById",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/orders/1",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"orders",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"item": [
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "LogoutAuthenticatedUser",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-CSRF-TOKEN",
+												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "localhost:8080/logout?",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"logout"
+											],
+											"query": [
+												{
+													"key": "",
+													"value": null
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "NoNeedAuthorization",
+			"item": [
+				{
+					"name": "AuthController",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "AuthStatus",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/auth-status",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"auth-status"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "HealthCheckController",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "HealthCheck",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/actuator/health",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"actuator",
+												"health"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "CsrfController",
+					"item": [
+						{
+							"name": "GetCsrfToken",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/csrf-token",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"csrf-token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "PostLoginCredentials",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "username",
+													"value": "test",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "test",
+													"type": "text"
+												},
+												{
+													"key": "_csrf",
+													"value": "TXWs8ERhqTpurxd3QSYrELyejmwN2yVZf8oTDzITgcvQKCvwKxOUlXYEnQpDnHVFeAsfKYWrow4070d0SvslNwEkuK3gHhzE",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "localhost:8080/login",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "AcessLoginPage",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/login",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "FoodController",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAllFoods",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/foods",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"foods"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetFoodDetailsById",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/foods/1",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"foods",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetMenuItemsByRestaurant",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/foods/menu/RESTAURANT",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"foods",
+												"menu",
+												"RESTAURANT"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetMenuItemsByFantasyWorld",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/foods/menu/FANTASY_WORLD",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"foods",
+												"menu",
+												"FANTASY_WORLD"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "GetShoppingCartItemsData",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-CSRF-TOKEN",
+												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ids\": [1, 2, 3]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/v1/foods/cart",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"foods",
+												"cart"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "AllergenController",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAllAllergens",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/allergens",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"allergens"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "IngredientController",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAllIngredients",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/ingredients",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"ingredients"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "OrderController",
+					"item": [
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "CreateGuestOrder",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"customer\": {\r\n        \"personalDetails\": {\r\n            \"firstname\": {\r\n                \"value\": \"Test\"\r\n            },\r\n            \"lastname\": {\r\n                \"value\": \"User\"\r\n            },\r\n            \"phoneNumber\": {\r\n                \"value\": \"+36204234442\"\r\n            }\r\n        },\r\n        \"email\": {\r\n            \"value\": \"test@example.com\"\r\n        },\r\n        \"shippingAddress\": {\r\n            \"zipCode\": {\r\n                \"value\": \"4028\"\r\n            },\r\n            \"city\": {\r\n                \"value\": \"Debrecen\"\r\n            },\r\n            \"street\": {\r\n                \"value\": \"Egyetem sgt\"\r\n            },\r\n            \"streetNumber\": {\r\n                \"value\": \"1\"\r\n            },\r\n            \"floorDoor\": {\r\n                \"value\": \"fsz/1\"\r\n            }\r\n        },\r\n        \"billingAddress\": {\r\n            \"zipCode\": {\r\n                \"value\": \"4028\"\r\n            },\r\n            \"city\": {\r\n                \"value\": \"Debrecen\"\r\n            },\r\n            \"street\": {\r\n                \"value\": \"Egyetem sgt\"\r\n            },\r\n            \"streetNumber\": {\r\n                \"value\": \"1\"\r\n            },\r\n            \"floorDoor\": {\r\n                \"value\": \"fsz/1\"\r\n            }\r\n        }\r\n    },\r\n    \"orderItems\": [\r\n        {\r\n            \"foodId\": 1,\r\n            \"quantity\": 2\r\n        }\r\n    ],\r\n    \"paymentType\": \"CASH\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/v1/orders/guest",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"orders",
+												"guest"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "RegistrationController",
+					"item": [
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "error",
+									"item": [
+										{
+											"name": "usernameErrors",
+											"item": [
+												{
+													"name": "CreateUser-usernameEmpty",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-usernameNull",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": null\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-usernameSpaceOnly",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \" \"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-usernameTooLong",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"test@test.com\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"testTestTestTestTestT\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-usernameTooShort",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"test@test.com\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"te\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-usernameContainsBannedCharacter",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test!@#$%\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-ussernameContainsSpace",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"te st\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-usernameEndsWithSpace",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test \"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-usernameStartsWithSpace",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \" test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "passwordErrors",
+											"item": [
+												{
+													"name": "CreateUser-passwordEmpty",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordNull",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": null\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": null\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordSpaceOnly",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \" \"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \" \"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordTooLong",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!TestTestTestTes\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!TestTestTestTes\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordTooShort",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"tU4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"tU4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordContainsSpace",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"te stUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"te stUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordTrailingSpace",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4! \"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4! \"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordLeadingSpace",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \" testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \" testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordNoLowercaseLetter",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"TESTUSER4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"TESTUSER4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordNoUppercaseLetter",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testuser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testuser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordNoDigit",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordNoSpecialCharacter",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordAndConfirmationNoMatch",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser5!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordCommon",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"jaguarTiger8!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"jaguarTiger8!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "emailErrors",
+											"item": [
+												{
+													"name": "CreateUser-emailEmpty",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailNull",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": null\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailSpaceOnly",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \" \"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailTooLong",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.com\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailInvalidFormatNo@",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"testexample.com\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailInvalidFormatNoLocal",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"@example.com\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailInvalidFormatNoDomain",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"test@.com\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailInvalidFormatNoTLD",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"test@example.\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailLeadingSpace",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \" test@example.com\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailTrailingSpace",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"test@example.com \"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailContainsSpaceLocal",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"te st@example.com\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailContainsSpaceDomain",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"test@exa mple.com\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-emailContainsSpaceLocalTLD",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"test@example.c om\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "myUser",
+											"item": [
+												{
+													"name": "CreateUser-emailNotPresent",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-myUsernameNotPresent",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordNotPresent",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-confirmPasswordNotPresent",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "CreateUser-passwordNotMatchesConfirmPassword",
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"JURACSK.MARTIN@GMAIL.COM\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser5!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "localhost:8080/v1/registration",
+															"host": [
+																"localhost"
+															],
+															"port": "8080",
+															"path": [
+																"v1",
+																"registration"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "successful",
+									"item": [
+										{
+											"name": "CreateUser",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"myUser\": {\r\n        \"email\": {\r\n            \"value\": \"test@example.com\"\r\n        },\r\n        \"myUsername\": {\r\n            \"value\": \"test\"\r\n        },\r\n        \"newPasswordDetails\": {\r\n            \"newPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            },\r\n            \"confirmNewPassword\": {\r\n                \"value\": \"testUser4!\"\r\n            }\r\n        }\r\n    },\r\n    \"personalDetails\": {\r\n        \"firstname\": {\r\n            \"value\": \"Test\"\r\n        },\r\n        \"lastname\": {\r\n            \"value\": \"User\"\r\n        },\r\n        \"phoneNumber\": {\r\n            \"value\": \"+36204234442\"\r\n        }\r\n    },\r\n    \"shippingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    },\r\n    \"billingAddress\": {\r\n        \"zipCode\": {\r\n            \"value\": \"4028\"\r\n        },\r\n        \"city\": {\r\n            \"value\": \"Debrecen\"\r\n        },\r\n        \"street\": {\r\n            \"value\": \"Egyetem sgt\"\r\n        },\r\n        \"streetNumber\": {\r\n            \"value\": \"1\"\r\n        },\r\n        \"floorDoor\": {\r\n            \"value\": \"fsz/1\"\r\n        }\r\n    }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:8080/v1/registration",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"v1",
+														"registration"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "IsCommonPassword",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"password\": \"testUser4!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/v1/registration/common-password",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"registration",
+												"common-password"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "IsUsernameExist",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/registration/username/test/exists",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"registration",
+												"username",
+												"test",
+												"exists"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "IsEmailExist",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/registration/email/test@example.com/exists",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"registration",
+												"email",
+												"test@example.com",
+												"exists"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "PasswordResetController",
+					"item": [
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "RequestPasswordResetLink",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": {\"value\": \"test@example.com\"},\r\n    \"myUsername\": {\"value\": \"test\"}\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/v1/password-reset/request-password-reset-link",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"password-reset",
+												"request-password-reset-link"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SetNewPassword",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"token\": \"REPLACE_WITH_TOKEN_FROM_EMAIL\",\r\n    \"newPasswordDetails\": {\r\n        \"newPassword\": {\"value\": \"newTestUser4!\"},\r\n        \"confirmNewPassword\": {\"value\": \"newTestUser4!\"}\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/v1/password-reset/set-new-password",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"password-reset",
+												"set-new-password"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "ValidateToken",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/password-reset/validate?token=REPLACE_WITH_TOKEN_FROM_EMAIL",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"password-reset",
+												"validate"
+											],
+											"query": [
+												{
+													"key": "token",
+													"value": "REPLACE_WITH_TOKEN_FROM_EMAIL"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

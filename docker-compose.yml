@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: restaurant
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d restaurant"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_HOST: postgres
+      REDIS_HOST: redis
+      # .env's SPRING_DATASOURCE_URL is a bootRun-only override (see .env.example) that would
+      # otherwise leak in via env_file and outrank the DB_HOST-based URL from application.yml,
+      # pointing the container at its own localhost instead of the postgres service.
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/restaurant
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres-data:
