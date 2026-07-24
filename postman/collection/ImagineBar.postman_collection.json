@@ -38,19 +38,13 @@
 							]
 						},
 						{
-							"name": "PUT",
+							"name": "PATCH",
 							"item": [
 								{
 									"name": "UpdatePassword",
 									"request": {
 										"method": "PATCH",
-										"header": [
-											{
-												"key": "X-CSRF-TOKEN",
-												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
-												"type": "text"
-											}
-										],
+										"header": [],
 										"body": {
 											"mode": "raw",
 											"raw": "{\r\n    \"currentPassword\": {\"value\": \"testUser4!\"},\r\n    \"newPasswordDetails\": {\r\n        \"newPassword\": {\"value\": \"newTestUser4!\"},\r\n        \"confirmNewPassword\": {\"value\": \"newTestUser4!\"}\r\n    }\r\n}",
@@ -113,13 +107,7 @@
 									"name": "UpdateBillingAddress",
 									"request": {
 										"method": "PUT",
-										"header": [
-											{
-												"key": "X-CSRF-TOKEN",
-												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
-												"type": "text"
-											}
-										],
+										"header": [],
 										"body": {
 											"mode": "raw",
 											"raw": "{\r\n    \"zipCode\": {\"value\": \"4028\"},\r\n    \"city\": {\"value\": \"Debrecen\"},\r\n    \"street\": {\"value\": \"Egyetem sgt\"},\r\n    \"streetNumber\": {\"value\": \"1\"},\r\n    \"floorDoor\": {\"value\": \"fsz/1\"}\r\n}",
@@ -148,13 +136,7 @@
 									"name": "UpdateDefaultShippingAddress",
 									"request": {
 										"method": "PUT",
-										"header": [
-											{
-												"key": "X-CSRF-TOKEN",
-												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
-												"type": "text"
-											}
-										],
+										"header": [],
 										"body": {
 											"mode": "raw",
 											"raw": "{\r\n    \"zipCode\": {\"value\": \"4028\"},\r\n    \"city\": {\"value\": \"Debrecen\"},\r\n    \"street\": {\"value\": \"Egyetem sgt\"},\r\n    \"streetNumber\": {\"value\": \"1\"},\r\n    \"floorDoor\": {\"value\": \"fsz/1\"}\r\n}",
@@ -178,18 +160,17 @@
 										}
 									},
 									"response": []
-								},
+								}
+							]
+						},
+						{
+							"name": "PATCH",
+							"item": [
 								{
 									"name": "UpdatePersonalDetails",
 									"request": {
 										"method": "PATCH",
-										"header": [
-											{
-												"key": "X-CSRF-TOKEN",
-												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
-												"type": "text"
-											}
-										],
+										"header": [],
 										"body": {
 											"mode": "raw",
 											"raw": "{\r\n    \"firstname\": {\"value\": \"Test\"},\r\n    \"lastname\": {\"value\": \"User\"},\r\n    \"phoneNumber\": {\"value\": \"+36204234442\"}\r\n}",
@@ -228,13 +209,7 @@
 									"name": "CreateFood",
 									"request": {
 										"method": "POST",
-										"header": [
-											{
-												"key": "X-CSRF-TOKEN",
-												"value": "mxUCb6gugBuJZiRTsVsRIhmY-DPl02ALrYySI6H4KM-w8QpLqCA2WJ4W43qkUBBqgHYlQCj-1VKA61EmnrrwEpGZTf-Iwzl4",
-												"type": "text"
-											}
-										],
+										"header": [],
 										"body": {
 											"mode": "raw",
 											"raw": "{\r\n    \"foodName\": {\r\n        \"value\": \"M\\u00e1kos t\\u00e9szta\"\r\n    },\r\n    \"description\": {\r\n        \"value\": \"M\\u00e1kos t\\u00e9szta r\\u00f6vid le\\u00edr\\u00e1sa.\"\r\n    },\r\n    \"price\": {\r\n        \"amount\": 1900,\r\n        \"currency\": \"HUF\"\r\n    },\r\n    \"placeToBuy\": \"RESTAURANT\",\r\n    \"category\": \"DESSERTS\",\r\n    \"allergens\": [],\r\n    \"ingredients\": [],\r\n    \"imageUrl\": {\r\n        \"value\": \"https://example.com/image.jpg\"\r\n    }\r\n}",
@@ -272,13 +247,7 @@
 									"name": "CreateOrder",
 									"request": {
 										"method": "POST",
-										"header": [
-											{
-												"key": "X-CSRF-TOKEN",
-												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
-												"type": "text"
-											}
-										],
+										"header": [],
 										"body": {
 											"mode": "raw",
 											"raw": "{\r\n    \"customer\": {\r\n        \"personalDetails\": {\r\n            \"firstname\": {\r\n                \"value\": \"Test\"\r\n            },\r\n            \"lastname\": {\r\n                \"value\": \"User\"\r\n            },\r\n            \"phoneNumber\": {\r\n                \"value\": \"+36204234442\"\r\n            }\r\n        },\r\n        \"email\": {\r\n            \"value\": \"test@example.com\"\r\n        },\r\n        \"shippingAddress\": {\r\n            \"zipCode\": {\r\n                \"value\": \"4028\"\r\n            },\r\n            \"city\": {\r\n                \"value\": \"Debrecen\"\r\n            },\r\n            \"street\": {\r\n                \"value\": \"Egyetem sgt\"\r\n            },\r\n            \"streetNumber\": {\r\n                \"value\": \"1\"\r\n            },\r\n            \"floorDoor\": {\r\n                \"value\": \"fsz/1\"\r\n            }\r\n        },\r\n        \"billingAddress\": {\r\n            \"zipCode\": {\r\n                \"value\": \"4028\"\r\n            },\r\n            \"city\": {\r\n                \"value\": \"Debrecen\"\r\n            },\r\n            \"street\": {\r\n                \"value\": \"Egyetem sgt\"\r\n            },\r\n            \"streetNumber\": {\r\n                \"value\": \"1\"\r\n            },\r\n            \"floorDoor\": {\r\n                \"value\": \"fsz/1\"\r\n            }\r\n        }\r\n    },\r\n    \"orderItems\": [\r\n        {\r\n            \"foodId\": 1,\r\n            \"quantity\": 2\r\n        }\r\n    ],\r\n    \"paymentType\": \"CASH\"\r\n}",
@@ -341,27 +310,15 @@
 									"name": "LogoutAuthenticatedUser",
 									"request": {
 										"method": "POST",
-										"header": [
-											{
-												"key": "X-CSRF-TOKEN",
-												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
-												"type": "text"
-											}
-										],
+										"header": [],
 										"url": {
-											"raw": "localhost:8080/logout?",
+											"raw": "localhost:8080/logout",
 											"host": [
 												"localhost"
 											],
 											"port": "8080",
 											"path": [
 												"logout"
-											],
-											"query": [
-												{
-													"key": "",
-													"value": null
-												}
 											]
 										}
 									},
@@ -623,13 +580,7 @@
 									"name": "GetShoppingCartItemsData",
 									"request": {
 										"method": "POST",
-										"header": [
-											{
-												"key": "X-CSRF-TOKEN",
-												"value": "cQNctjc8EV3QwspzZIN04_IMxSfAC0NN7NnSTNmW8ZXTdRszQzVqhVQMIG398vpFBa5AgJE86Eb4OXJgj7rqeLj1yKPgE38D",
-												"type": "text"
-											}
-										],
+										"header": [],
 										"body": {
 											"mode": "raw",
 											"raw": "{\r\n    \"ids\": [1, 2, 3]\r\n}",
@@ -2149,6 +2100,39 @@
 					]
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const stateChangingMethods = ['POST', 'PUT', 'PATCH', 'DELETE'];",
+					"",
+					"if (stateChangingMethods.includes(pm.request.method)) {",
+					"    const baseUrl = pm.variables.get('baseUrl') || 'localhost:8080';",
+					"    pm.sendRequest({",
+					"        url: 'http://' + baseUrl + '/csrf-token',",
+					"        method: 'GET'",
+					"    }, function (err, res) {",
+					"        if (!err && res && res.code === 200) {",
+					"            const csrfToken = res.json().csrfToken;",
+					"            pm.request.headers.upsert({ key: 'X-CSRF-TOKEN', value: csrfToken });",
+					"        } else {",
+					"            console.warn('Could not fetch CSRF token for pre-request script:', err || (res && res.code));",
+					"        }",
+					"    });",
+					"}"
+				]
+			}
 		}
 	]
 }
