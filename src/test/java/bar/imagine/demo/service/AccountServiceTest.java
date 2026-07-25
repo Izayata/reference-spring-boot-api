@@ -2,6 +2,7 @@ package bar.imagine.demo.service;
 
 import bar.imagine.demo.converter.MyUserConverter;
 import bar.imagine.demo.data.Email;
+import bar.imagine.demo.data.EmailOutbox;
 import bar.imagine.demo.data.MyUser;
 import bar.imagine.demo.data.myUser.MyUsername;
 import bar.imagine.demo.data.myUser.Password;
@@ -11,12 +12,12 @@ import bar.imagine.demo.dto.myUser.PasswordDTO;
 import bar.imagine.demo.dto.NewPasswordDetailsDTO;
 import bar.imagine.demo.data.Customer;
 import bar.imagine.demo.repository.CustomerRepository;
+import bar.imagine.demo.repository.EmailOutboxRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.NoSuchElementException;
@@ -37,7 +38,8 @@ class AccountServiceTest {
     @Mock private UserService userService;
     @Mock private MyUserConverter myUserConverter;
     @Mock private PasswordEncoder passwordEncoder;
-    @Mock private ApplicationEventPublisher eventPublisher;
+    @Mock private EmailOutboxRepository emailOutboxRepository;
+    @Mock private EmailService emailService;
     @Mock private CustomerRepository customerRepository;
 
     @InjectMocks
@@ -104,12 +106,13 @@ class AccountServiceTest {
         when(userService.getAuthenticatedUser()).thenReturn(user);
         when(passwordEncoder.matches(eq("OldPassword@1"), eq("$2a$10$oldHash"))).thenReturn(true);
         when(passwordEncoder.encode("NewPassword@1")).thenReturn("$2a$10$newHash");
+        when(emailService.buildPasswordChangeConfirmationEmail(any())).thenReturn(new EmailContent("subject", "body"));
 
         accountService.updateAuthenticatedUserPassword(buildPasswordChangeDto("OldPassword@1", "NewPassword@1"));
 
         assertEquals("$2a$10$newHash", user.getPassword().getValue());
         verify(userService).saveMyUser(user);
-        verify(eventPublisher).publishEvent(any(PasswordChangedEvent.class));
+        verify(emailOutboxRepository).save(any(EmailOutbox.class));
     }
 
     @Test
@@ -122,6 +125,6 @@ class AccountServiceTest {
             accountService.updateAuthenticatedUserPassword(buildPasswordChangeDto("WrongPassword@1", "NewPassword@1")));
 
         verify(userService, never()).saveMyUser(any());
-        verify(eventPublisher, never()).publishEvent(any());
+        verify(emailOutboxRepository, never()).save(any());
     }
 }

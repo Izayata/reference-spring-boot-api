@@ -10,15 +10,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 import bar.imagine.demo.data.Email;
+import bar.imagine.demo.data.EmailOutbox;
 import bar.imagine.demo.data.MyUser;
 import bar.imagine.demo.data.PasswordResetToken;
 import bar.imagine.demo.data.myUser.Password;
+import bar.imagine.demo.data.outbox.EmailType;
 import bar.imagine.demo.dto.TokenValidationResult;
 import bar.imagine.demo.exception.exceptions.InvalidPasswordException;
 import bar.imagine.demo.exception.exceptions.RateLimitExceededException;
 import bar.imagine.demo.exception.exceptions.TokenAlreadyUsedException;
 import bar.imagine.demo.exception.exceptions.TokenExpiredException;
 import bar.imagine.demo.exception.exceptions.TokenNotFoundException;
+import bar.imagine.demo.repository.EmailOutboxRepository;
 import bar.imagine.demo.repository.MyUserRepository;
 import bar.imagine.demo.repository.PasswordResetTokenRepository;
 import bar.imagine.demo.request.data.ForgottenPasswordRequestData;
@@ -26,7 +29,6 @@ import bar.imagine.demo.request.data.ResetPasswordRequestData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,7 +43,8 @@ public class PasswordResetService {
     private final MyUserRepository myUserRepository;
     private final PasswordEncoder passwordEncoder;
     private final RedisService redisService;
-    private final ApplicationEventPublisher eventPublisher;
+    private final EmailOutboxRepository emailOutboxRepository;
+    private final EmailService emailService;
 
     @Value("${app.frontend.url:http://localhost:3000}")
     private String frontendUrl;
@@ -93,9 +96,14 @@ public class PasswordResetService {
                 log.debug("Password reset token saved to repository");
 
                 String resetUrl = frontendUrl + "/forgot-password?token=" + rawToken;
-                eventPublisher.publishEvent(new PasswordResetRequestedEvent(
-                    myUser.getEmail().getValue(), myUser.getMyUsername().getValue(), resetUrl));
-                log.debug("Password reset email event published");
+                EmailContent emailContent = emailService.buildPasswordResetEmail(myUser.getMyUsername().getValue(), resetUrl);
+                emailOutboxRepository.save(EmailOutbox.builder()
+                    .recipientEmail(myUser.getEmail().getValue())
+                    .emailType(EmailType.PASSWORD_RESET)
+                    .subject(emailContent.subject())
+                    .body(emailContent.body())
+                    .build());
+                log.debug("Password reset email queued in outbox");
             }
         }
 
@@ -154,8 +162,14 @@ public class PasswordResetService {
         tokenRepository.invalidateAllMyUserTokens(myUser, Instant.now());
         log.debug("All user tokens invalidated");
 
-        eventPublisher.publishEvent(new PasswordChangedEvent(myUser.getEmail().getValue(), myUser.getMyUsername().getValue()));
-        log.debug("Password changed event published");
+        EmailContent emailContent = emailService.buildPasswordChangeConfirmationEmail(myUser.getMyUsername().getValue());
+        emailOutboxRepository.save(EmailOutbox.builder()
+            .recipientEmail(myUser.getEmail().getValue())
+            .emailType(EmailType.PASSWORD_CHANGED)
+            .subject(emailContent.subject())
+            .body(emailContent.body())
+            .build());
+        log.debug("Password changed email queued in outbox");
 
         return "Password has been successfully reset!";
     }

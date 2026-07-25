@@ -4,13 +4,15 @@ import static bar.imagine.demo.util.PasswordChangeUtils.ERR_MSG_CURRENT_PASSWORD
 
 import bar.imagine.demo.converter.MyUserConverter;
 import bar.imagine.demo.data.Customer;
+import bar.imagine.demo.data.EmailOutbox;
 import bar.imagine.demo.data.MyUser;
 import bar.imagine.demo.data.myUser.Password;
+import bar.imagine.demo.data.outbox.EmailType;
 import bar.imagine.demo.dto.MyUserDTO;
 import bar.imagine.demo.dto.PasswordChangeDTO;
 import bar.imagine.demo.repository.CustomerRepository;
+import bar.imagine.demo.repository.EmailOutboxRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +25,8 @@ public class AccountService {
     private final UserService userService;
     private final MyUserConverter myUserConverter;
     private final PasswordEncoder passwordEncoder;
-    private final ApplicationEventPublisher eventPublisher;
+    private final EmailOutboxRepository emailOutboxRepository;
+    private final EmailService emailService;
     private final CustomerRepository customerRepository;
 
     // MyUser.getCustomer() is a lazy association loaded on the authenticated principal at login
@@ -50,9 +53,12 @@ public class AccountService {
         authenticatedUser.setPassword(new Password(passwordEncoder.encode(passwordChangeDto.getNewPasswordDetails().getNewPassword().getValue())));
         userService.saveMyUser(authenticatedUser);
 
-        eventPublisher.publishEvent(new PasswordChangedEvent(
-            authenticatedUser.getEmail().getValue(),
-            authenticatedUser.getMyUsername().getValue()
-        ));
+        EmailContent emailContent = emailService.buildPasswordChangeConfirmationEmail(authenticatedUser.getMyUsername().getValue());
+        emailOutboxRepository.save(EmailOutbox.builder()
+            .recipientEmail(authenticatedUser.getEmail().getValue())
+            .emailType(EmailType.PASSWORD_CHANGED)
+            .subject(emailContent.subject())
+            .body(emailContent.body())
+            .build());
     }
 }

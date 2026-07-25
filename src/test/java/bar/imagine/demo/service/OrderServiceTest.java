@@ -11,6 +11,7 @@ import bar.imagine.demo.dto.CustomerDTO;
 import bar.imagine.demo.dto.EmailDTO;
 import bar.imagine.demo.dto.OrderDTO;
 import bar.imagine.demo.repository.CustomerRepository;
+import bar.imagine.demo.repository.EmailOutboxRepository;
 import bar.imagine.demo.repository.OrderRepository;
 import bar.imagine.demo.request.data.CreateOrderRequestData;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -46,7 +46,7 @@ class OrderServiceTest {
     @Mock private CustomerConverter customerConverter;
     @Mock private EmailService emailService;
     @Mock private OrderConverter orderConverter;
-    @Mock private ApplicationEventPublisher eventPublisher;
+    @Mock private EmailOutboxRepository emailOutboxRepository;
     @Mock private CustomerRepository customerRepository;
 
     @InjectMocks
