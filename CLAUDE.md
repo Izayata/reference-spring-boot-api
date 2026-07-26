@@ -51,6 +51,9 @@ Every task must follow this sequence:
 
 ## Architecture
 
+For a full design description with diagrams (domain model ERD, sequence diagrams for auth/order/
+email flows), see `docs/DESIGN.md`.
+
 **Layering**: Controller → Service → Repository, with `converter/` classes translating between JPA
 entities (`data/`) and API DTOs (`dto/`). Controllers and services never return entities directly.
 
@@ -72,11 +75,14 @@ single place mapping both custom exceptions (`exception/exceptions/`) and framew
 to consistent JSON error responses (`{"error": ...}` or a field→messages map for validation
 failures). Extend this rather than handling errors ad hoc in controllers.
 
-**Event-driven email**: services publish domain events (`RegistrationSuccessEvent`,
-`PasswordResetRequestedEvent`, `OrderConfirmedEvent`, `PasswordChangedEvent`);
-`service/EmailEventListener.java` consumes them via `@TransactionalEventListener(phase =
-AFTER_COMMIT)` so mail only sends after the DB transaction commits. Send failures are logged, not
-propagated.
+**Transactional outbox email**: services write an `EmailOutbox` row (`REGISTRATION_SUCCESS`,
+`PASSWORD_RESET`, `PASSWORD_CHANGED`, `ORDER_CONFIRMATION`) inside the same `@Transactional`
+business method as the domain change, so the row commits atomically with the business state.
+`service/EmailOutboxWorker.java` polls pending rows every `app.email-outbox.poll-rate-ms`
+(default 5s) and sends each via `EmailOutboxService`; failed sends retry up to 5 attempts before
+being marked `FAILED`, and `FAILED` rows are bulk-requeued daily
+(`app.email-outbox.requeue-cron`). This replaced an earlier `@TransactionalEventListener`-based
+design whose synchronous, un-persisted sends could hang the request thread or be lost on a crash.
 
 **Security** (`config/SecurityConfig.java`): session-based form login at `/login`, BCrypt passwords,
 CORS locked to `app.frontend.url`, CSP + frame-deny headers, and a deliberately path-scoped

@@ -3,18 +3,20 @@ package bar.imagine.demo.service;
 import bar.imagine.demo.converter.CustomerConverter;
 import bar.imagine.demo.converter.OrderConverter;
 import bar.imagine.demo.data.Customer;
+import bar.imagine.demo.data.EmailOutbox;
 import bar.imagine.demo.data.MyUser;
 import bar.imagine.demo.data.Order;
 import bar.imagine.demo.data.OrderItem;
 import bar.imagine.demo.data.food.Price;
 import bar.imagine.demo.data.food.price.CurrencyEnum;
+import bar.imagine.demo.data.outbox.EmailType;
 import bar.imagine.demo.dto.OrderDTO;
 import bar.imagine.demo.repository.CustomerRepository;
+import bar.imagine.demo.repository.EmailOutboxRepository;
 import bar.imagine.demo.repository.OrderRepository;
 import bar.imagine.demo.request.data.CreateOrderRequestData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +34,7 @@ public class OrderService {
     private final CustomerConverter customerConverter;
     private final OrderConverter orderConverter;
     private final EmailService emailService;
-    private final ApplicationEventPublisher eventPublisher;
+    private final EmailOutboxRepository emailOutboxRepository;
     private final CustomerRepository customerRepository;
 
     @Transactional
@@ -56,7 +58,12 @@ public class OrderService {
         Order savedOrder = orderRepository.save(orderToSave);
 
         String body = emailService.buildOrderConfirmationEmailBody(savedOrder, authenticatedUsername);
-        eventPublisher.publishEvent(new OrderConfirmedEvent(recipientEmail.getValue(), body));
+        emailOutboxRepository.save(EmailOutbox.builder()
+            .recipientEmail(recipientEmail.getValue())
+            .emailType(EmailType.ORDER_CONFIRMATION)
+            .subject(EmailService.ORDER_CONFIRMATION_SUBJECT)
+            .body(body)
+            .build());
 
         return orderConverter.convertOrderToOrderDto(savedOrder);
     }

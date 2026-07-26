@@ -8,6 +8,9 @@ app:
     token-expiry-minutes: ${PASSWORD_RESET_TOKEN_EXPIRY_MINUTES}
     max-requests-per-hour: ${PASSWORD_RESET_MAX_REQUESTS_PER_HOUR}
     cleanup-rate-ms: ${PASSWORD_RESET_CLEANUP_RATE_MS}
+  email-outbox:
+    poll-rate-ms: 5000
+    requeue-cron: "0 0 3 * * *"
 
 
 spring:
@@ -25,6 +28,14 @@ spring:
           auth: true
           starttls:
             enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+  task:
+    scheduling:
+      pool:
+        size: 5
 
   # Redis Configuration (for rate limiting)
   data:

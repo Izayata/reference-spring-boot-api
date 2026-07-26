@@ -7,15 +7,17 @@ import bar.imagine.demo.converter.MyUserConverter;
 import bar.imagine.demo.converter.RegistrationConverter;
 import bar.imagine.demo.data.Customer;
 import bar.imagine.demo.data.Email;
+import bar.imagine.demo.data.EmailOutbox;
 import bar.imagine.demo.data.MyUser;
 import bar.imagine.demo.data.myUser.MyUsername;
 import bar.imagine.demo.data.myUser.Password;
+import bar.imagine.demo.data.outbox.EmailType;
 import bar.imagine.demo.dto.MyUserDTO;
 import bar.imagine.demo.dto.RegistrationDTO;
 import bar.imagine.demo.repository.CustomerRepository;
+import bar.imagine.demo.repository.EmailOutboxRepository;
 import bar.imagine.demo.repository.MyUserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +29,8 @@ public class RegistrationService {
     private final MyUserRepository myUserRepository;
     private final PasswordEncoder passwordEncoder;
     private final RegistrationConverter registrationConverter;
-    private final ApplicationEventPublisher eventPublisher;
+    private final EmailOutboxRepository emailOutboxRepository;
+    private final EmailService emailService;
     private final MyUserConverter myUserConverter;
 
     @Transactional
@@ -57,12 +60,18 @@ public class RegistrationService {
         // SET MY_USER IN CUSTOMER ENTITY
         customerToSave.setMyUser(myUserToSave);
 
-        // SAVE CUSTOMER AND MY_USER
-        customerRepository.save(customerToSave);
+        // SAVE MY_USER AND CUSTOMER (MyUser first: Customer.myUser is the non-nullable owning FK)
         MyUser registeredMyUser = myUserRepository.save(myUserToSave);
+        customerRepository.save(customerToSave);
 
-        // PUBLISH EVENT — welcome email is sent after commit via EmailEventListener
-        eventPublisher.publishEvent(new RegistrationSuccessEvent(email.getValue(), username.getValue()));
+        // WRITE OUTBOX ROW — welcome email is sent asynchronously by EmailOutboxWorker
+        EmailContent emailContent = emailService.buildRegistrationSuccessfulEmail(username.getValue());
+        emailOutboxRepository.save(EmailOutbox.builder()
+            .recipientEmail(email.getValue())
+            .emailType(EmailType.REGISTRATION_SUCCESS)
+            .subject(emailContent.subject())
+            .body(emailContent.body())
+            .build());
 
         return myUserConverter.convertMyUserToMyUserDto(registeredMyUser);
     }

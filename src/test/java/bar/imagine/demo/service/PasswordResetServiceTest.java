@@ -1,6 +1,7 @@
 package bar.imagine.demo.service;
 
 import bar.imagine.demo.data.Email;
+import bar.imagine.demo.data.EmailOutbox;
 import bar.imagine.demo.data.MyUser;
 import bar.imagine.demo.data.PasswordResetToken;
 import bar.imagine.demo.data.myUser.MyUsername;
@@ -15,6 +16,7 @@ import bar.imagine.demo.exception.exceptions.RateLimitExceededException;
 import bar.imagine.demo.exception.exceptions.TokenAlreadyUsedException;
 import bar.imagine.demo.exception.exceptions.TokenExpiredException;
 import bar.imagine.demo.exception.exceptions.TokenNotFoundException;
+import bar.imagine.demo.repository.EmailOutboxRepository;
 import bar.imagine.demo.repository.MyUserRepository;
 import bar.imagine.demo.repository.PasswordResetTokenRepository;
 import bar.imagine.demo.request.data.ForgottenPasswordRequestData;
@@ -25,7 +27,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -46,7 +47,8 @@ class PasswordResetServiceTest {
     @Mock private MyUserRepository myUserRepository;
     @Mock private PasswordEncoder passwordEncoder;
     @Mock private RedisService redisService;
-    @Mock private ApplicationEventPublisher eventPublisher;
+    @Mock private EmailOutboxRepository emailOutboxRepository;
+    @Mock private EmailService emailService;
 
     @InjectMocks
     private PasswordResetService passwordResetService;
@@ -105,7 +107,7 @@ class PasswordResetServiceTest {
 
         assertTrue(result.contains("If the email"));
         verify(tokenRepository, never()).save(any());
-        verify(eventPublisher, never()).publishEvent(any(PasswordResetRequestedEvent.class));
+        verify(emailOutboxRepository, never()).save(any());
     }
 
     @Test
@@ -125,12 +127,13 @@ class PasswordResetServiceTest {
         when(myUserRepository.findByEmail(any(Email.class))).thenReturn(Optional.of(user));
         when(redisService.atomicIncrementWithTtlOnFirstWrite(anyString(), any(Duration.class))).thenReturn(1L);
         when(passwordEncoder.encode(anyString())).thenReturn("$2a$10$someHash");
+        when(emailService.buildPasswordResetEmail(anyString(), anyString())).thenReturn(new EmailContent("subject", "body"));
 
         String result = passwordResetService.requestPasswordReset(
             buildRequest("test@example.com", "testuser"));
 
         verify(tokenRepository).save(any(PasswordResetToken.class));
-        verify(eventPublisher).publishEvent(any(PasswordResetRequestedEvent.class));
+        verify(emailOutboxRepository).save(any(EmailOutbox.class));
         assertTrue(result.contains("If the email"));
     }
 
@@ -162,6 +165,7 @@ class PasswordResetServiceTest {
         when(passwordEncoder.matches(eq("someRawToken"), eq("$2a$10$tokenHash"))).thenReturn(true);
         when(passwordEncoder.matches(eq("NewPassword@1"), eq("$2a$10$oldHash"))).thenReturn(false);
         when(passwordEncoder.encode("NewPassword@1")).thenReturn("$2a$10$newHash");
+        when(emailService.buildPasswordChangeConfirmationEmail(anyString())).thenReturn(new EmailContent("subject", "body"));
 
         String result = passwordResetService.setNewPassword(buildResetRequest("someRawToken", "NewPassword@1"));
 
@@ -171,7 +175,7 @@ class PasswordResetServiceTest {
         verify(tokenRepository).save(token);
         assertTrue(token.isUsed());
         verify(tokenRepository).invalidateAllMyUserTokens(eq(user), any(Instant.class));
-        verify(eventPublisher).publishEvent(any(PasswordChangedEvent.class));
+        verify(emailOutboxRepository).save(any(EmailOutbox.class));
     }
 
     @Test
@@ -234,6 +238,6 @@ class PasswordResetServiceTest {
         assertThrows(InvalidPasswordException.class, () ->
             passwordResetService.setNewPassword(buildResetRequest("someRawToken", "OldPassword@1")));
         verify(myUserRepository, never()).save(any());
-        verify(eventPublisher, never()).publishEvent(any());
+        verify(emailOutboxRepository, never()).save(any());
     }
 }

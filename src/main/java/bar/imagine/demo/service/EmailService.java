@@ -26,9 +26,8 @@ public class EmailService {
 
     public static final String ORDER_CONFIRMATION_SUBJECT = "Rendelés visszaigazolás";
 
-    public void sendRegistrationSuccessfulEmail(String recipientEmail, String recipientName) {
+    public EmailContent buildRegistrationSuccessfulEmail(String recipientName) {
         String subject = "Sikeres regisztráció - " + appName;
-        log.debug("Email subject set");
         StringBuilder sb = new StringBuilder();
 
         sb.append("Boldog napszakot, ").append(recipientName).append("!").append("\n")
@@ -38,12 +37,11 @@ public class EmailService {
             .append("A felhasználói fiók regisztrálása sikeresen megtörtént, jó étvágyat kívánunk!").append("\n")
             .append("\n")
             .append("Üdvözlettel, ImagineBar!").append("\n");
-        log.debug("Email body prepared");
 
-        this.sendEmail(recipientEmail, subject, sb.toString());
+        return new EmailContent(subject, sb.toString());
     }
 
-    public void sendPasswordResetEmail(String recipientEmail, String recipientName, String resetUrl) {
+    public EmailContent buildPasswordResetEmail(String recipientName, String resetUrl) {
         String subject = "Jelszó-visszaállítási kérelem - " + appName;
         StringBuilder sb = new StringBuilder();
 
@@ -56,10 +54,10 @@ public class EmailService {
             .append("\n")
             .append("Üdvözlettel, ImagineBar!").append("\n");
 
-        this.sendEmail(recipientEmail, subject, sb.toString());
+        return new EmailContent(subject, sb.toString());
     }
 
-    public void sendPasswordChangeConfirmationEmail(String recipientEmail, String recipientName) {
+    public EmailContent buildPasswordChangeConfirmationEmail(String recipientName) {
         String subject = "Sikeres jelszó-visszaállítás megerősítése - " + appName;
         StringBuilder sb = new StringBuilder();
 
@@ -70,7 +68,7 @@ public class EmailService {
             .append("\n")
             .append("Üdvözlettel, ImagineBar!").append("\n");
 
-        this.sendEmail(recipientEmail, subject, sb.toString());
+        return new EmailContent(subject, sb.toString());
     }
 
     public String buildOrderConfirmationEmailBody(Order order, String authenticatedUsername) {

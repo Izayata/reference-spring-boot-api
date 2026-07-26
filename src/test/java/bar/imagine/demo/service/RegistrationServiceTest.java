@@ -4,6 +4,7 @@ import bar.imagine.demo.converter.MyUserConverter;
 import bar.imagine.demo.converter.RegistrationConverter;
 import bar.imagine.demo.data.Customer;
 import bar.imagine.demo.data.Email;
+import bar.imagine.demo.data.EmailOutbox;
 import bar.imagine.demo.data.myUser.MyUsername;
 import bar.imagine.demo.dto.EmailDTO;
 import bar.imagine.demo.dto.MyUserRegistrationDTO;
@@ -12,6 +13,7 @@ import bar.imagine.demo.dto.RegistrationDTO;
 import bar.imagine.demo.dto.myUser.MyUsernameDTO;
 import bar.imagine.demo.dto.myUser.PasswordDTO;
 import bar.imagine.demo.repository.CustomerRepository;
+import bar.imagine.demo.repository.EmailOutboxRepository;
 import bar.imagine.demo.repository.MyUserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +21,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,7 +35,8 @@ class RegistrationServiceTest {
     @Mock private MyUserRepository myUserRepository;
     @Mock private PasswordEncoder passwordEncoder;
     @Mock private RegistrationConverter registrationConverter;
-    @Mock private ApplicationEventPublisher eventPublisher;
+    @Mock private EmailOutboxRepository emailOutboxRepository;
+    @Mock private EmailService emailService;
     @Mock private MyUserConverter myUserConverter;
 
     @InjectMocks
@@ -57,7 +59,7 @@ class RegistrationServiceTest {
     }
 
     @Test
-    void register_success_savesEntitiesAndPublishesEvent() {
+    void register_success_savesEntitiesAndQueuesWelcomeEmail() {
         RegistrationDTO dto = buildRegistrationDto("newuser", "new@example.com", "SecurePass1!");
 
         when(myUserRepository.existsByMyUsername(any(MyUsername.class))).thenReturn(false);
@@ -66,14 +68,15 @@ class RegistrationServiceTest {
         when(passwordEncoder.encode(any())).thenReturn("$2a$10$encoded");
         when(customerRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
         when(myUserRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+        when(emailService.buildRegistrationSuccessfulEmail(any())).thenReturn(new EmailContent("subject", "body"));
 
         registrationService.register(dto);
 
         verify(customerRepository).save(any());
         verify(myUserRepository).save(any());
-        ArgumentCaptor<RegistrationSuccessEvent> eventCaptor = ArgumentCaptor.forClass(RegistrationSuccessEvent.class);
-        verify(eventPublisher).publishEvent(eventCaptor.capture());
-        assertTrue(eventCaptor.getValue().email().contains("example.com"));
+        ArgumentCaptor<EmailOutbox> outboxCaptor = ArgumentCaptor.forClass(EmailOutbox.class);
+        verify(emailOutboxRepository).save(outboxCaptor.capture());
+        assertTrue(outboxCaptor.getValue().getRecipientEmail().contains("example.com"));
     }
 
     @Test
