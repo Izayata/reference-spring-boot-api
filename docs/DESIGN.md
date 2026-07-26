@@ -131,6 +131,9 @@ erDiagram
 
 ## 4. API Surface
 
+For exact request/response JSON shapes per endpoint (frontend-facing reference), see
+`docs/API_ENDPOINTS.md`.
+
 | Controller | Method & Path | Auth | Purpose |
 |---|---|---|---|
 | `AuthController` | `GET /auth-status` | Public | Session probe — 200 if authenticated, 401 otherwise. |
