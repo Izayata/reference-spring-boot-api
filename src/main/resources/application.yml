@@ -76,3 +76,10 @@ server:
   servlet:
     encoding:
       charset: UTF-8
+
+management:
+  health:
+    # Mail delivery goes through the transactional outbox (async, retried) rather than blocking
+    # request threads, so a transient SMTP outage shouldn't flip the whole app's health to DOWN.
+    mail:
+      enabled: false

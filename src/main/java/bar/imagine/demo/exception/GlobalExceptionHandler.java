@@ -21,6 +21,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -161,6 +162,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
             .body(Collections.singletonMap("error", e.getMessage()));
+    }
+
+    // Thrown by DispatcherServlet when a request matches no handler and no static resource either
+    // (e.g. a mistyped or unimplemented path) -> 404, not the generic 500 catch-all below.
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNoResourceFoundException(NoResourceFoundException e) {
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(Collections.singletonMap("error", "The requested resource was not found."));
     }
 
     @ExceptionHandler(Exception.class)
