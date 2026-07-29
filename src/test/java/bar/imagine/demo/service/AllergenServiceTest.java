@@ -39,6 +39,7 @@ class AllergenServiceTest {
         assertEquals(1, result.size());
         assertEquals(1L, result.get(0).getId());
         assertEquals("Gluten", result.get(0).getName().getValue());
+        assertEquals("fa-wheat", result.get(0).getIconName());
     }
 
     @Test

@@ -210,7 +210,7 @@ Required: all fields.
         "foodName": { "value": "Gulyásleves" },
         "price": { "amount": 1900, "currency": "HUF" },
         "category": "SOUPS",
-        "allergens": [ { "id": 1, "name": { "value": "Gluten" } } ],
+        "allergens": [ { "id": 1, "name": { "value": "Gluten" }, "iconName": "fa-wheat" } ],
         "imageUrl": { "value": "https://example.com/image.jpg" }
     }
 ]
@@ -249,7 +249,7 @@ Path variable `placeToBuy` is `RESTAURANT` or `FANTASY_WORLD` (see Enum referenc
     "price": { "amount": 1900, "currency": "HUF" },
     "description": { "value": "Hagyományos magyar gulyásleves." },
     "ingredientNames": [ { "value": "Marhahús" } ],
-    "allergens": [ { "id": 1, "name": { "value": "Gluten" } } ],
+    "allergens": [ { "id": 1, "name": { "value": "Gluten" }, "iconName": "fa-wheat" } ],
     "imageUrl": { "value": "https://example.com/image.jpg" }
 }
 ```
@@ -285,7 +285,7 @@ Required: `foodName`, `price`, `placeToBuy`, `category`. Optional: `allergens`, 
 ### `GET /v1/allergens` — Public
 - Response body:
 ```json
-[ { "id": 1, "name": { "value": "Gluten" } } ]
+[ { "id": 1, "name": { "value": "Gluten" }, "iconName": "fa-wheat" } ]
 ```
 
 ## Ingredient

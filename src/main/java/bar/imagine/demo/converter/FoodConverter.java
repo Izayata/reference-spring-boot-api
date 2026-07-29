@@ -73,6 +73,7 @@ public class FoodConverter {
             .map(a -> AllergenDTO.builder()
                 .id(a.getId())
                 .name(new AllergenNameDTO(a.getName().getValue()))
+                .iconName(a.getIconName())
                 .build())
             .toList();
     }
