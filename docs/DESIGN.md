@@ -40,6 +40,20 @@ I/O. Adding or changing a field means touching all three — see `data/food/Food
 with the app depending on both via `condition: service_healthy`. `docker-compose` always forces
 `SPRING_PROFILES_ACTIVE=dev` on the `app` service.
 
+**Health check**: `spring-boot-starter-actuator` exposes `GET /actuator/health`, reporting an
+aggregate `UP`/`DOWN` status. `management.health.mail.enabled=false` deliberately excludes the
+auto-configured mail indicator (which would otherwise open a live SMTP connection on every health
+check) — the auto-configured datasource/Redis/disk-space indicators still contribute. Excluding
+mail is consistent with the outbox design (§6): email delivery is already async and retried, so a
+transient SMTP outage shouldn't make the whole app read as down. Before this indicator was added,
+`/actuator/health` had no implementing dependency at all, so it 404'd despite being permitted in
+`SecurityConfig` and referenced by `docker-compose.yml`/this doc — see §9 for the related fix to
+how unmapped routes are reported.
+
+**CI**: `.github/workflows/ci.yml` runs `./gradlew build` (compile + full test suite) on every
+push and PR against `main`. The `test` profile is fully self-contained (H2 in-memory, mocked
+Redis), so no service containers are needed in the runner.
+
 **Spring profiles**:
 
 | Profile | File | `ddl-auto` | Seeding | Notes |
@@ -479,6 +493,7 @@ validation failures.
 | `NumberParseException` (libphonenumber) | 400 | |
 | `DataIntegrityViolationException` | 409 | Generic "conflict" message — doesn't leak DB detail. |
 | `NoSuchElementException`, `EmptyResultDataAccessException`, `UsernameNotFoundException` | 404 | Grouped handler. |
+| `NoResourceFoundException` | 404 | Thrown by `DispatcherServlet` for any unmapped/mistyped URL. Has its own handler specifically so it doesn't fall through to the generic 500 catch-all below — since `@ControllerAdvice` is global, without this every unroutable path (not just app-specific 404s) reported itself as a server error rather than "not found." |
 | `IllegalStateException` | 500 | Treated as a server bug; logged at `error`. |
 | `Exception` (catch-all) | 500 | Logged at `error`, generic message returned to the client. |
 
