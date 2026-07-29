@@ -19,7 +19,10 @@ password reset. Root package: `bar.imagine.demo`.
     present — copy `.env.example` to `.env` and fill in real values first.
 - Full stack via Docker: `docker-compose up --build` — starts postgres + redis + app, with the app
   running under `SPRING_PROFILES_ACTIVE=dev` (seeds `data.sql`).
-- Manual API testing: Postman collection at `postman/collection/ImagineBar.postman_collection.json`.
+- Manual API testing: Postman collection at `postman/collection/ImagineBar.postman_collection.json`;
+  for exact request/response JSON shapes per endpoint, see `docs/API_ENDPOINTS.md`.
+- CI: `.github/workflows/ci.yml` runs `./gradlew build` on every push/PR to `main`. The `test`
+  profile is fully self-contained (H2 + mocked Redis), so no service containers are needed.
 
 Required env vars (see `.env.example`): mail credentials (`MAIL_USERNAME`, `EMAIL_PASSWORD` — a
 Gmail app password), `DB_USERNAME`/`DB_PASSWORD`, `APP_FRONTEND_URL` (drives CORS and password-reset
@@ -73,7 +76,15 @@ annotations in `validation/` (`NoForbiddenValue`, `NotEmptyList`, `ValidPhoneNum
 **Centralized error handling**: `exception/GlobalExceptionHandler.java` (`@ControllerAdvice`) is the
 single place mapping both custom exceptions (`exception/exceptions/`) and framework/JPA exceptions
 to consistent JSON error responses (`{"error": ...}` or a field→messages map for validation
-failures). Extend this rather than handling errors ad hoc in controllers.
+failures). Extend this rather than handling errors ad hoc in controllers. Note
+`NoResourceFoundException` (unmapped/mistyped URLs) has its own handler returning 404 — without it,
+this being a global `@ControllerAdvice` means any unroutable path falls into the generic `Exception`
+catch-all and misreports as 500.
+
+**Health check**: `spring-boot-starter-actuator` exposes `GET /actuator/health`.
+`management.health.mail.enabled=false` excludes the mail indicator (which would otherwise open a
+live SMTP connection per check) from the aggregate status — email delivery is already async via the
+outbox, so a transient SMTP outage shouldn't read as the whole app being down.
 
 **Transactional outbox email**: services write an `EmailOutbox` row (`REGISTRATION_SUCCESS`,
 `PASSWORD_RESET`, `PASSWORD_CHANGED`, `ORDER_CONFIRMATION`) inside the same `@Transactional`
