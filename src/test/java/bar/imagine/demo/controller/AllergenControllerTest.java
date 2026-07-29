@@ -40,12 +40,13 @@ class AllergenControllerTest {
 
     @Test
     void getAllAllergens_returns200_withAllergenList() throws Exception {
-        AllergenDTO dto = AllergenDTO.builder().id(1L).name(new AllergenNameDTO("Gluten")).build();
+        AllergenDTO dto = AllergenDTO.builder().id(1L).name(new AllergenNameDTO("Gluten")).iconName("fa-wheat").build();
         when(allergenService.getAllAllergens()).thenReturn(List.of(dto));
 
         mockMvc.perform(get("/v1/allergens"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$[0].id").value(1))
-            .andExpect(jsonPath("$[0].name.value").value("Gluten"));
+            .andExpect(jsonPath("$[0].name.value").value("Gluten"))
+            .andExpect(jsonPath("$[0].iconName").value("fa-wheat"));
     }
 }

@@ -21,9 +21,14 @@ public class AllergenDTO {
     @NotNull(message = ERR_MSG_ALLERGEN_NAME_REQUIRED)
     private AllergenNameDTO name;
 
+    // Unvalidated: populated on output (GET responses); ignored on input (POST /v1/foods only
+    // reads id off each allergen reference), so no @NotBlank here.
+    private String iconName;
+
     @JsonCreator
-    public AllergenDTO(@JsonProperty("id") Long id, @JsonProperty("name") AllergenNameDTO name) {
+    public AllergenDTO(@JsonProperty("id") Long id, @JsonProperty("name") AllergenNameDTO name, @JsonProperty("iconName") String iconName) {
         this.id = id;
         this.name = name;
+        this.iconName = iconName;
     }
 }
