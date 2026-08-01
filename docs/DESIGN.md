@@ -107,6 +107,7 @@ erDiagram
         Email email
         Address billingAddress
         Address defaultShippingAddress
+        Address[] shippingAddresses "@ElementCollection, table SHIPPING_ADDRESSES"
     }
     ORDER {
         Long id PK
@@ -130,6 +131,7 @@ erDiagram
         PlaceToBuyEnum placeToBuy
         CategoryEnum category
         Description description
+        ImageURL imageURL
     }
     PASSWORD_RESET_TOKEN {
         UUID id PK
