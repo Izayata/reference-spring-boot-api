@@ -1,0 +1,400 @@
+<title>ImagineBar — Domain Model ERD</title>
+<style>
+  :root {
+    --paper: #EDEEE7;
+    --paper-raised: #F7F7F2;
+    --ink: #1B2321;
+    --slate: #4B584F;
+    --line: #D7D8CB;
+    --copper: #A85526;
+    --copper-soft: #EADACB;
+    --teal: #35625A;
+    --teal-soft: #D6E3DF;
+    --grid-line: rgba(27, 35, 33, 0.055);
+    --shadow: 0 1px 2px rgba(27, 35, 33, 0.06), 0 8px 24px rgba(27, 35, 33, 0.05);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #161C1A;
+      --paper-raised: #1D2422;
+      --ink: #ECEBE2;
+      --slate: #A9B4AC;
+      --line: #333D38;
+      --copper: #E08A4F;
+      --copper-soft: #3A2A1E;
+      --teal: #7FB4A8;
+      --teal-soft: #223330;
+      --grid-line: rgba(236, 235, 226, 0.05);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #161C1A;
+    --paper-raised: #1D2422;
+    --ink: #ECEBE2;
+    --slate: #A9B4AC;
+    --line: #333D38;
+    --copper: #E08A4F;
+    --copper-soft: #3A2A1E;
+    --teal: #7FB4A8;
+    --teal-soft: #223330;
+    --grid-line: rgba(236, 235, 226, 0.05);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+  :root[data-theme="light"] {
+    --paper: #EDEEE7;
+    --paper-raised: #F7F7F2;
+    --ink: #1B2321;
+    --slate: #4B584F;
+    --line: #D7D8CB;
+    --copper: #A85526;
+    --copper-soft: #EADACB;
+    --teal: #35625A;
+    --teal-soft: #D6E3DF;
+    --grid-line: rgba(27, 35, 33, 0.055);
+    --shadow: 0 1px 2px rgba(27, 35, 33, 0.06), 0 8px 24px rgba(27, 35, 33, 0.05);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1.25rem, 4vw, 2.5rem) 4rem;
+  }
+
+  header.masthead {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-bottom: 1.75rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--copper);
+  }
+
+  h1 {
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    line-height: 1.15;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .subtitle {
+    color: var(--slate);
+    font-size: 1rem;
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--slate);
+    background: var(--paper-raised);
+  }
+  .chip b { color: var(--ink); font-weight: 600; }
+  .chip.pk { border-color: color-mix(in srgb, var(--teal) 45%, var(--line)); }
+  .chip.pk b { color: var(--teal); }
+  .chip.fk { border-color: color-mix(in srgb, var(--copper) 45%, var(--line)); }
+  .chip.fk b { color: var(--copper); }
+
+  section { margin-bottom: 2.75rem; }
+
+  .section-label {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin: 0 0 0.85rem;
+  }
+
+  .diagram-panel {
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 28px 28px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 28px 28px,
+      var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: clamp(1rem, 3vw, 2rem);
+    overflow-x: auto;
+  }
+
+  .diagram-panel pre.mermaid {
+    margin: 0;
+    min-width: 640px;
+  }
+
+  .dictionary {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.9rem;
+  }
+
+  .entity-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+  }
+
+  .entity-card h3 {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    margin: 0 0 0.4rem;
+    color: var(--ink);
+  }
+
+  .entity-card p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: var(--slate);
+  }
+
+  .entity-card .rel {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--teal);
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", monospace;
+  }
+
+  .notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .note {
+    border-left: 2px solid var(--copper);
+    padding-left: 0.9rem;
+  }
+
+  .note h4 {
+    margin: 0 0 0.3rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .note p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: var(--slate);
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--slate);
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", monospace;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body { transition: none; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="eyebrow">ImagineBar · Domain Model</p>
+    <h1>Entity&ndash;Relationship Diagram</h1>
+    <p class="subtitle">
+      The nine JPA entities backing menu, customer, ordering, auth, and email-delivery data —
+      generated from <code>src/main/java/bar/imagine/demo/data/</code> and kept in sync with
+      <code>docs/DESIGN.md</code>.
+    </p>
+    <div class="legend">
+      <span class="chip pk"><b>PK</b> primary key</span>
+      <span class="chip fk"><b>FK</b> foreign key</span>
+      <span class="chip">||--|| one&nbsp;to&nbsp;one</span>
+      <span class="chip">||--o{ one&nbsp;to&nbsp;many</span>
+      <span class="chip">}o--o{ many&nbsp;to&nbsp;many</span>
+    </div>
+  </header>
+
+  <section>
+    <p class="section-label">Diagram</p>
+    <div class="diagram-panel">
+<pre class="mermaid">
+erDiagram
+    MY_USER ||--|| CUSTOMER : "owns (FK on Customer)"
+    MY_USER ||--o{ PASSWORD_RESET_TOKEN : has
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--o{ ORDER_ITEM : contains
+    ORDER_ITEM }o--|| FOOD : references
+    FOOD }o--o{ ALLERGEN : tagged_with
+    FOOD }o--o{ INGREDIENT : tagged_with
+
+    MY_USER {
+        Long id PK
+        Email email
+        MyUsername myUsername
+        Password password
+        Role role
+    }
+    CUSTOMER {
+        Long id PK
+        Long myUser_id FK "non-null, unique"
+        PersonalDetails personalDetails
+        Email email
+        Address billingAddress
+        Address defaultShippingAddress
+        Address[] shippingAddresses "@ElementCollection, table SHIPPING_ADDRESSES"
+    }
+    ORDER {
+        Long id PK
+        Long customer_id FK "nullable = guest order"
+        PersonalDetails personalDetails "snapshot"
+        Address shippingAddress "snapshot"
+        Price totalCost
+        PaymentType paymentType
+    }
+    ORDER_ITEM {
+        Long id PK
+        Long food_id FK
+        Long order_id FK
+        int quantity
+        Price orderItemPrice "snapshot"
+    }
+    FOOD {
+        Long id PK
+        FoodName foodName "unique"
+        Price price
+        PlaceToBuyEnum placeToBuy
+        CategoryEnum category
+        Description description
+        ImageURL imageURL
+    }
+    PASSWORD_RESET_TOKEN {
+        UUID id PK
+        Long myUser_id FK
+        String tokenHash
+        String tokenLookupHash "indexed"
+        Instant expiresAt
+        Instant usedAt "null = unused"
+    }
+</pre>
+    </div>
+  </section>
+
+  <section>
+    <p class="section-label">Data dictionary</p>
+    <div class="dictionary">
+      <div class="entity-card">
+        <h3>MyUser</h3>
+        <p>Authentication identity: login credentials and role.</p>
+        <span class="rel">1:1 Customer · 1:N PasswordResetToken</span>
+      </div>
+      <div class="entity-card">
+        <h3>Customer</h3>
+        <p>Order-facing profile: personal details, billing and shipping addresses.</p>
+        <span class="rel">owns FK → MyUser · 1:N Order</span>
+      </div>
+      <div class="entity-card">
+        <h3>Food</h3>
+        <p>A menu item: name, price, category, and where it can be bought.</p>
+        <span class="rel">M:N Allergen · M:N Ingredient</span>
+      </div>
+      <div class="entity-card">
+        <h3>Allergen</h3>
+        <p>Read-only reference data used to tag menu items.</p>
+        <span class="rel">M:N ← Food</span>
+      </div>
+      <div class="entity-card">
+        <h3>Ingredient</h3>
+        <p>Read-only reference data used to tag menu items.</p>
+        <span class="rel">M:N ← Food</span>
+      </div>
+      <div class="entity-card">
+        <h3>Order</h3>
+        <p>A placed order. Snapshots personal details, shipping address, and item prices at
+          order time.</p>
+        <span class="rel">M:1 Customer (nullable) · 1:N OrderItem</span>
+      </div>
+      <div class="entity-card">
+        <h3>OrderItem</h3>
+        <p>A line item: food reference, quantity, and a price snapshot.</p>
+        <span class="rel">M:1 Food · M:1 Order</span>
+      </div>
+      <div class="entity-card">
+        <h3>PasswordResetToken</h3>
+        <p>Single-use, time-limited reset token with a dual-hash lookup/verify design.</p>
+        <span class="rel">M:1 MyUser</span>
+      </div>
+      <div class="entity-card">
+        <h3>EmailOutbox</h3>
+        <p>A queued, retryable email. Deliberately denormalized.</p>
+        <span class="rel">no relationships — plain recipientEmail string</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="section-label">Reading notes</p>
+    <div class="notes">
+      <div class="note">
+        <h4>Guest orders</h4>
+        <p>Order.customer_id is nullable — a null FK means the order was placed without an
+          account, not a data-integrity gap.</p>
+      </div>
+      <div class="note">
+        <h4>Snapshotted fields</h4>
+        <p>Order.personalDetails, Order.shippingAddress, and OrderItem.orderItemPrice are
+          copies taken at order time, so later profile or menu-price edits never rewrite
+          history.</p>
+      </div>
+      <div class="note">
+        <h4>EmailOutbox is excluded</h4>
+        <p>It stores recipientEmail as a plain string with no foreign key, so it has no place
+          in a relational diagram — it's queue state, not domain data.</p>
+      </div>
+      <div class="note">
+        <h4>shippingAddresses isn't a boxed entity</h4>
+        <p>It's a JPA @ElementCollection of the Address value object, persisted to its own
+          SHIPPING_ADDRESSES table — shown as an annotated field on Customer rather than a
+          separate entity with a relationship line.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Source of truth: docs/DESIGN.md §3 — Domain Model
+  </footer>
+</div>
