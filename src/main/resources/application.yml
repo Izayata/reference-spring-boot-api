@@ -5,9 +5,9 @@ app:
   frontend:
     url: ${APP_FRONTEND_URL}
   password-reset:
-    token-expiry-minutes: ${PASSWORD_RESET_TOKEN_EXPIRY_MINUTES}
-    max-requests-per-hour: ${PASSWORD_RESET_MAX_REQUESTS_PER_HOUR}
-    cleanup-rate-ms: ${PASSWORD_RESET_CLEANUP_RATE_MS}
+    token-expiry-minutes: ${PASSWORD_RESET_TOKEN_EXPIRY_MINUTES:15}
+    max-requests-per-hour: ${PASSWORD_RESET_MAX_REQUESTS_PER_HOUR:3}
+    cleanup-rate-ms: ${PASSWORD_RESET_CLEANUP_RATE_MS:3600000}
   email-outbox:
     poll-rate-ms: 5000
     requeue-cron: "0 0 3 * * *"
@@ -40,7 +40,7 @@ spring:
   # Redis Configuration (for rate limiting)
   data:
     redis:
-      host: ${REDIS_HOST}
+      host: ${REDIS_HOST:redis}
       port: 6379
       timeout: 2000ms
       lettuce:
