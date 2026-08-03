@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -34,5 +36,10 @@ public class OrderController {
     @GetMapping("/{id}")
     public OrderDTO getOrderById(@PathVariable Long id) {
         return orderService.getOrderById(id);
+    }
+
+    @GetMapping
+    public List<OrderDTO> getOrdersForAuthenticatedCustomer() {
+        return orderService.getOrdersForAuthenticatedCustomer();
     }
 }

@@ -85,6 +85,17 @@ public class OrderService {
         return orderConverter.convertOrderToOrderDto(order);
     }
 
+    @Transactional(readOnly = true)
+    public List<OrderDTO> getOrdersForAuthenticatedCustomer() {
+        MyUser authenticatedUser = userService.getAuthenticatedUser();
+        // Safe despite the stale MyUserPrincipal-held Customer proxy: Hibernate resolves
+        // .getId() from the FK column without hitting the DB, so no LazyInitializationException.
+        Long customerId = authenticatedUser.getCustomer().getId();
+        return orderRepository.findByCustomerIdWithItemsAndFoodOrderByCreatedAtDesc(customerId).stream()
+                .map(orderConverter::convertOrderToOrderDto)
+                .toList();
+    }
+
     private Order convertCreateOrderRequestDataToOrder(CreateOrderRequestData orderRequest, Customer customer) {
         var orderToSave = new Order();
         log.debug("Building order from request");

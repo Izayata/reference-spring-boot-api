@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 
 // Write-only response object: always built server-side via OrderConverter and returned in HTTP
@@ -37,4 +38,6 @@ public class OrderDTO {
     private AddressDTO customerAddress;
 
     private String customerPhoneNumber;
+
+    private Instant createdAt;
 }

@@ -29,6 +29,7 @@ public class OrderConverter {
                 ? order.getCustomer().getEmail().getValue() : null)
             .customerAddress(addressConverter.convertAddressToAddressDto(order.getShippingAddress()))
             .customerPhoneNumber(order.getPersonalDetails().getPhoneNumber().getValue())
+            .createdAt(order.getCreatedAt())
             .build();
     }
 

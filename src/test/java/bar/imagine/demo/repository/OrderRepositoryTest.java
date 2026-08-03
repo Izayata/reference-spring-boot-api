@@ -37,6 +37,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
@@ -129,6 +130,60 @@ class OrderRepositoryTest {
     @Test
     void findByIdWithItemsAndFood_returnsEmpty_whenNotFound() {
         Optional<Order> result = orderRepository.findByIdWithItemsAndFood(999L);
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void save_populatesCreatedAtAutomatically() {
+        Customer customer = buildAndSaveCustomer("customerCreatedAt", "createdat@example.com");
+        Food food = buildAndSaveFood();
+
+        Order saved = orderRepository.save(buildOrder(customer, food));
+
+        assertNotNull(saved.getCreatedAt());
+    }
+
+    @Test
+    void findByCustomerIdWithItemsAndFoodOrderByCreatedAtDesc_returnsOnlyThatCustomersOrders_mostRecentFirst() throws InterruptedException {
+        Customer customerA = buildAndSaveCustomer("customerB1", "b1@example.com");
+        Customer customerB = buildAndSaveCustomer("customerB2", "b2@example.com");
+        Food food = buildAndSaveFood();
+
+        Order older = orderRepository.saveAndFlush(buildOrder(customerA, food));
+        Thread.sleep(5);
+        Order newer = orderRepository.saveAndFlush(buildOrder(customerA, food));
+        orderRepository.saveAndFlush(buildOrder(customerB, food));
+
+        List<Order> result = orderRepository.findByCustomerIdWithItemsAndFoodOrderByCreatedAtDesc(customerA.getId());
+
+        assertEquals(2, result.size());
+        assertEquals(newer.getId(), result.get(0).getId());
+        assertEquals(older.getId(), result.get(1).getId());
+        assertFalse(result.get(0).getOrderItems().isEmpty());
+        assertEquals(food.getId(), result.get(0).getOrderItems().get(0).getFood().getId());
+    }
+
+    @Test
+    void findByCustomerIdWithItemsAndFoodOrderByCreatedAtDesc_excludesGuestOrders() {
+        Customer customer = buildAndSaveCustomer("customerB3", "b3@example.com");
+        Food food = buildAndSaveFood();
+        orderRepository.save(buildOrder(customer, food));
+
+        Order guestOrder = buildOrder(customer, food);
+        guestOrder.setCustomer(null);
+        orderRepository.save(guestOrder);
+
+        List<Order> result = orderRepository.findByCustomerIdWithItemsAndFoodOrderByCreatedAtDesc(customer.getId());
+
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    void findByCustomerIdWithItemsAndFoodOrderByCreatedAtDesc_returnsEmptyList_whenCustomerHasNoOrders() {
+        Customer customer = buildAndSaveCustomer("customerB4", "b4@example.com");
+
+        List<Order> result = orderRepository.findByCustomerIdWithItemsAndFoodOrderByCreatedAtDesc(customer.getId());
 
         assertTrue(result.isEmpty());
     }

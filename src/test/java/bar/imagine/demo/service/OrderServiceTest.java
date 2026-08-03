@@ -25,10 +25,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -188,5 +190,54 @@ class OrderServiceTest {
         when(orderRepository.findByIdWithItemsAndFood(1L)).thenReturn(Optional.of(order));
 
         assertThrows(NoSuchElementException.class, () -> orderService.getOrderById(1L));
+    }
+
+    @Test
+    void getOrdersForAuthenticatedCustomer_returnsOrdersMappedToDtos_mostRecentFirst() {
+        Customer authCustomer = mock(Customer.class);
+        when(authCustomer.getId()).thenReturn(42L);
+
+        MyUser authUser = mock(MyUser.class);
+        when(authUser.getCustomer()).thenReturn(authCustomer);
+        when(userService.getAuthenticatedUser()).thenReturn(authUser);
+
+        Order newerOrder = mock(Order.class);
+        Order olderOrder = mock(Order.class);
+        when(orderRepository.findByCustomerIdWithItemsAndFoodOrderByCreatedAtDesc(42L))
+            .thenReturn(List.of(newerOrder, olderOrder));
+
+        OrderDTO newerDto = OrderDTO.builder().id(2L).build();
+        OrderDTO olderDto = OrderDTO.builder().id(1L).build();
+        when(orderConverter.convertOrderToOrderDto(newerOrder)).thenReturn(newerDto);
+        when(orderConverter.convertOrderToOrderDto(olderOrder)).thenReturn(olderDto);
+
+        List<OrderDTO> result = orderService.getOrdersForAuthenticatedCustomer();
+
+        assertEquals(List.of(newerDto, olderDto), result);
+    }
+
+    @Test
+    void getOrdersForAuthenticatedCustomer_returnsEmptyList_whenCustomerHasNoOrders() {
+        Customer authCustomer = mock(Customer.class);
+        when(authCustomer.getId()).thenReturn(42L);
+
+        MyUser authUser = mock(MyUser.class);
+        when(authUser.getCustomer()).thenReturn(authCustomer);
+        when(userService.getAuthenticatedUser()).thenReturn(authUser);
+
+        when(orderRepository.findByCustomerIdWithItemsAndFoodOrderByCreatedAtDesc(42L))
+            .thenReturn(List.of());
+
+        List<OrderDTO> result = orderService.getOrdersForAuthenticatedCustomer();
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void getOrdersForAuthenticatedCustomer_propagates_whenNoAuthenticatedUser() {
+        when(userService.getAuthenticatedUser()).thenThrow(new RuntimeException("no authenticated user"));
+
+        assertThrows(RuntimeException.class, () -> orderService.getOrdersForAuthenticatedCustomer());
+        verify(orderRepository, never()).findByCustomerIdWithItemsAndFoodOrderByCreatedAtDesc(any());
     }
 }

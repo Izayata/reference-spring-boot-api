@@ -15,6 +15,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.mockito.ArgumentMatchers.eq;
@@ -101,5 +102,33 @@ class OrderControllerTest {
     void getOrderById_returns400_whenIdIsNotANumber() throws Exception {
         mockMvc.perform(get("/v1/orders/abc"))
             .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void getOrdersForAuthenticatedCustomer_returns3xx_whenUnauthenticated() throws Exception {
+        mockMvc.perform(get("/v1/orders"))
+            .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    @WithMockUser
+    void getOrdersForAuthenticatedCustomer_returns200_withOrderList() throws Exception {
+        OrderDTO mockDto = OrderDTO.builder().id(1L).build();
+        when(orderService.getOrdersForAuthenticatedCustomer()).thenReturn(List.of(mockDto));
+
+        mockMvc.perform(get("/v1/orders"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].id").value(1));
+    }
+
+    @Test
+    @WithMockUser
+    void getOrdersForAuthenticatedCustomer_returns200_withEmptyArray_whenNoOrders() throws Exception {
+        when(orderService.getOrdersForAuthenticatedCustomer()).thenReturn(List.of());
+
+        mockMvc.perform(get("/v1/orders"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
     }
 }
