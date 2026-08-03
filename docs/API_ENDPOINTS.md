@@ -296,6 +296,21 @@ Required: `foodName`, `price`, `placeToBuy`, `category`. Optional: `allergens`, 
 [ { "id": 1, "name": { "value": "Marhahús" } } ]
 ```
 
+## Zip Code
+
+### `GET /v1/zip-codes/{zipCode}` — Public
+- Response body (**200**, match found):
+```json
+{ "zipCode": "1011", "city": "Budapest" }
+```
+- Possible errors:
+  - **404** — well-formed zip code, no mapping exists:
+    ```json
+    { "error": "No city found for zip code: 9999" }
+    ```
+  - **400** — malformed path variable (not exactly 4 digits): standard field-errors validation
+    body.
+
 ---
 
 ## Order
