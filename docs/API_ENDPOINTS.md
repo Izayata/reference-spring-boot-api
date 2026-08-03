@@ -376,17 +376,57 @@ Required: `customer` (with `personalDetails`, `email`, `shippingAddress`, `billi
         "streetNumber": { "value": "1" },
         "floorDoor": { "value": "fsz/1" }
     },
-    "customerPhoneNumber": "+36204234442"
+    "customerPhoneNumber": "+36204234442",
+    "createdAt": "2026-07-14T18:32:00Z"
 }
 ```
 Note `OrderDTO` is flatter than the request — `customerFirstname`/`customerLastname`/etc. are
-top-level strings, not a nested `personalDetails` object, and not value-object-wrapped.
+top-level strings, not a nested `personalDetails` object, and not value-object-wrapped. `createdAt`
+is set automatically on save and may be `null` on orders created before this field existed.
 - Possible errors: **400** on field validation failure, **404** if any `foodId` doesn't exist.
 
 ### `GET /v1/orders/{id}` — Authenticated
 - Response body: `OrderDTO`, same shape as above.
 - Possible errors: **404** if the order doesn't exist, belongs to a different customer, or is a
   guest order (guest orders have no owning customer and are unreachable through this endpoint).
+
+### `GET /v1/orders` — Authenticated
+List orders belonging to the calling customer only — same scoping rule as
+`GET /v1/orders/{id}` (never returns another customer's orders, never returns guest orders, since
+guest orders have no owning customer to scope by). Ordered most-recent-first. Unpaginated — a plain
+array, not a `Page`-style wrapper.
+- Response body (**200**): an array of `OrderDTO`, same shape as above:
+```json
+[
+    {
+        "id": 1,
+        "orderItems": [
+            {
+                "food": { "id": 1, "foodName": { "value": "Gulyásleves" } },
+                "quantity": 2,
+                "orderItemPrice": 3800
+            }
+        ],
+        "totalCost": 3800,
+        "totalCostCurrency": "HUF",
+        "paymentType": "CASH",
+        "customerFirstname": "Test",
+        "customerLastname": "User",
+        "customerEmail": "test@example.com",
+        "customerAddress": {
+            "zipCode": { "value": "4028" },
+            "city": { "value": "Debrecen" },
+            "street": { "value": "Egyetem sgt" },
+            "streetNumber": { "value": "1" },
+            "floorDoor": { "value": "fsz/1" }
+        },
+        "customerPhoneNumber": "+36204234442",
+        "createdAt": "2026-07-14T18:32:00Z"
+    }
+]
+```
+- Possible errors: **401** if the session isn't authenticated. An authenticated customer with zero
+  past orders gets **200** with an empty array `[]`, not an error.
 
 ---
 

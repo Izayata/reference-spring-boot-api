@@ -22,7 +22,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,4 +88,11 @@ public class Order {
     @JsonBackReference("customer-orders")
     @ToString.Exclude
     private Customer customer;
+
+    // Nullable: rows created before this column existed have no real creation time and are left
+    // null rather than backfilled with a fabricated value; the frontend treats a missing
+    // createdAt as "date unknown".
+    @CreationTimestamp
+    @Column(name = "CREATED_AT", updatable = false)
+    private Instant createdAt;
 }
