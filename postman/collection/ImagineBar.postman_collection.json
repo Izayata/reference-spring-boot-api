@@ -668,6 +668,36 @@
 					]
 				},
 				{
+					"name": "ZipCityMappingController",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetCityByZipCode",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/v1/zip-codes/1011",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"zip-codes",
+												"1011"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "OrderController",
 					"item": [
 						{
