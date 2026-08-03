@@ -95,6 +95,7 @@ public class SecurityConfig {
                 new AntPathRequestMatcher("/v1/foods/cart", "POST"),
                 new AntPathRequestMatcher("/v1/allergens"),
                 new AntPathRequestMatcher("/v1/ingredients"),
+                new AntPathRequestMatcher("/v1/zip-codes/**"),
                 new AntPathRequestMatcher("/v1/password-reset/**"),
                 // Only guest order creation is CSRF-exempt; authenticated order creation (POST /v1/orders)
                 // and GET /v1/orders/{id} both require CSRF/authentication
@@ -117,7 +118,7 @@ public class SecurityConfig {
                 // Remaining public endpoints
                 .requestMatchers(
                     "/auth-status", "/csrf-token", "/login",
-                    "/v1/allergens", "/v1/ingredients",
+                    "/v1/allergens", "/v1/ingredients", "/v1/zip-codes/**",
                     "/v1/password-reset/**", "/actuator/health", "/v1/registration/**"
                 ).permitAll()
                 .anyRequest().authenticated()

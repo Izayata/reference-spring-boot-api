@@ -18,6 +18,8 @@ spring:
   sql:
     init:
       mode: always
+      encoding: UTF-8
+      data-locations: classpath:data.sql,classpath:zip_city_mappings.sql
 
 logging:
   level:
