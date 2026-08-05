@@ -236,7 +236,8 @@
     <p class="eyebrow">ImagineBar · Domain Model</p>
     <h1>Entity&ndash;Relationship Diagram</h1>
     <p class="subtitle">
-      The nine JPA entities backing menu, customer, ordering, auth, and email-delivery data —
+      The ten JPA entities backing menu, customer, ordering, auth, email-delivery, and address
+      lookup data —
       generated from <code>src/main/java/bar/imagine/demo/data/</code> and kept in sync with
       <code>docs/DESIGN.md</code>.
     </p>
@@ -285,6 +286,7 @@ erDiagram
         Address shippingAddress "snapshot"
         Price totalCost
         PaymentType paymentType
+        Instant createdAt "nullable for pre-existing rows"
     }
     ORDER_ITEM {
         Long id PK
@@ -302,6 +304,15 @@ erDiagram
         Description description
         ImageURL imageURL
     }
+    ALLERGEN {
+        Long id PK
+        AllergenName name "unique"
+        String iconName
+    }
+    INGREDIENT {
+        Long id PK
+        IngredientName name "unique"
+    }
     PASSWORD_RESET_TOKEN {
         UUID id PK
         Long myUser_id FK
@@ -309,6 +320,11 @@ erDiagram
         String tokenLookupHash "indexed"
         Instant expiresAt
         Instant usedAt "null = unused"
+    }
+    ZIP_CITY_MAPPING {
+        Long id PK
+        ZipCode zipCode "unique"
+        City city
     }
 </pre>
     </div>
@@ -362,6 +378,12 @@ erDiagram
         <h3>EmailOutbox</h3>
         <p>A queued, retryable email. Deliberately denormalized.</p>
         <span class="rel">no relationships — plain recipientEmail string</span>
+      </div>
+      <div class="entity-card">
+        <h3>ZipCityMapping</h3>
+        <p>Static reference data mapping a zip code to its city, backing the public
+          zip-code lookup endpoint.</p>
+        <span class="rel">no relationships — freestanding lookup table</span>
       </div>
     </div>
   </section>
