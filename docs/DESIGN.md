@@ -76,6 +76,7 @@ Redis), so no service containers are needed in the runner.
 | `OrderItem` | A line item: food reference + quantity + price snapshot (`unit price × quantity` at order time). | M:1 `Food`, M:1 `Order`. |
 | `PasswordResetToken` | Single-use, time-limited password-reset token. Dual-hash design: `tokenLookupHash` (SHA-256, indexed) for fast DB lookup, `tokenHash` (BCrypt) for constant-time verification — "defense in depth." | M:1 `MyUser`. |
 | `EmailOutbox` | A queued, retryable email (see §6). | None (denormalized: stores `recipientEmail` as a plain string, not a FK). |
+| `ZipCityMapping` | Static reference data mapping a zip code to its city, backing the public zip-code lookup endpoint. | None (freestanding lookup table). |
 
 **Why `MyUser` and `Customer` are separate entities**: `MyUser` is the login/authentication
 identity (username, password hash, role); `Customer` is the order-facing profile (name, addresses).
@@ -116,6 +117,7 @@ erDiagram
         Address shippingAddress "snapshot"
         Price totalCost
         PaymentType paymentType
+        Instant createdAt "nullable for pre-existing rows"
     }
     ORDER_ITEM {
         Long id PK
@@ -133,6 +135,15 @@ erDiagram
         Description description
         ImageURL imageURL
     }
+    ALLERGEN {
+        Long id PK
+        AllergenName name "unique"
+        String iconName
+    }
+    INGREDIENT {
+        Long id PK
+        IngredientName name "unique"
+    }
     PASSWORD_RESET_TOKEN {
         UUID id PK
         Long myUser_id FK
@@ -140,6 +151,11 @@ erDiagram
         String tokenLookupHash "indexed"
         Instant expiresAt
         Instant usedAt "null = unused"
+    }
+    ZIP_CITY_MAPPING {
+        Long id PK
+        ZipCode zipCode "unique"
+        City city
     }
 ```
 
