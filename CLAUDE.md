@@ -5,8 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project overview
 
 "ImagineBar" — a Spring Boot 3.4.5 / Java 17 / Gradle REST API for a restaurant/bar food-ordering
-system: menu (foods, allergens, ingredients), customers, orders, authentication/registration, and
-password reset. Root package: `bar.imagine.demo`.
+system: menu (foods, allergens, ingredients), customers, orders, authentication/registration,
+password reset, and zip-code/city lookup. Root package: `bar.imagine.demo`.
 
 ## Commands
 
@@ -18,7 +18,7 @@ password reset. Root package: `bar.imagine.demo`.
   - The custom `bootRun` block in `build.gradle` auto-loads a `.env` file from the project root if
     present — copy `.env.example` to `.env` and fill in real values first.
 - Full stack via Docker: `docker-compose up --build` — starts postgres + redis + app, with the app
-  running under `SPRING_PROFILES_ACTIVE=dev` (seeds `data.sql`).
+  running under `SPRING_PROFILES_ACTIVE=dev` (seeds `data.sql` and `zip_city_mappings.sql`).
 - Manual API testing: Postman collection at `postman/collection/ImagineBar.postman_collection.json`;
   for exact request/response JSON shapes per endpoint, see `docs/API_ENDPOINTS.md`.
 - CI: `.github/workflows/ci.yml` runs `./gradlew build` on every push/PR to `main`. The `test`
@@ -27,7 +27,9 @@ password reset. Root package: `bar.imagine.demo`.
 Required env vars (see `.env.example`): mail credentials (`MAIL_USERNAME`, `EMAIL_PASSWORD` — a
 Gmail app password), `DB_USERNAME`/`DB_PASSWORD`, `APP_FRONTEND_URL` (drives CORS and password-reset
 links), password-reset timing (`PASSWORD_RESET_TOKEN_EXPIRY_MINUTES`,
-`PASSWORD_RESET_MAX_REQUESTS_PER_HOUR`, `PASSWORD_RESET_CLEANUP_RATE_MS`), and `REDIS_HOST`.
+`PASSWORD_RESET_MAX_REQUESTS_PER_HOUR`, `PASSWORD_RESET_CLEANUP_RATE_MS`), and `REDIS_HOST`. Two
+more (`SPRING_PROFILES_ACTIVE`, `SPRING_DATASOURCE_URL`) are optional and only needed when running
+`bootRun` locally against Docker-hosted Postgres/Redis.
 
 ## Workflow
 
@@ -47,8 +49,8 @@ Every task must follow this sequence:
 
 - **default** (`application.yml`): Postgres, `ddl-auto: validate`, no seeding — production-shaped,
   requires all env vars to be set.
-- **dev** (`application-dev.yml`): `ddl-auto: create-drop`, seeds `src/main/resources/data.sql`,
-  verbose Spring logging. Used by `docker-compose.yml`.
+- **dev** (`application-dev.yml`): `ddl-auto: create-drop`, seeds `src/main/resources/data.sql`
+  and `zip_city_mappings.sql`, verbose Spring logging. Used by `docker-compose.yml`.
 - **test** (`application-test.yml`): H2 in-memory database, used by the test suite. Redis is never
   actually contacted in tests — see below.
 
@@ -66,7 +68,12 @@ primitives. Each one pairs with a `Utils` class under `util/.../XxxUtils.java` h
 constants/messages, and a matching DTO under `dto/.../XxxDTO.java` for API I/O. Adding or changing a
 field means touching all three. Reference example: `data/food/FoodName.java` +
 `util/foodUtils/FoodNameUtils.java` + `dto/food/FoodNameDTO.java`, wired together in
-`converter/FoodConverter.java`.
+`converter/FoodConverter.java`. Known, deliberate exceptions: `Order.createdAt` is a plain
+`@CreationTimestamp Instant` rather than a wrapped value object, since it's framework-managed and
+nullable by design for pre-existing rows; `Allergen.iconName` is a plain unvalidated `String` on
+`AllergenDTO` because that same DTO class is reused as a nested, write-ignored field on
+`POST /v1/foods` requests, so validating it as required would incorrectly reject writes that omit
+it.
 
 **Request validation**: request bodies live in `request/data/`, validated with `@Valid` plus custom
 annotations in `validation/` (`NoForbiddenValue`, `NotEmptyList`, `ValidPhoneNumber`,
@@ -100,6 +107,13 @@ CORS locked to `app.frontend.url`, CSP + frame-deny headers, and a deliberately 
 CSRF-exemption list (public GETs, guest checkout, password reset, etc.) — read the inline comments
 there before changing any endpoint's public/authenticated status, since the reasoning per exemption
 is non-obvious (e.g. guest order creation is CSRF-exempt but authenticated order creation is not).
+
+**Zip-code lookup**: `GET /v1/zip-codes/{zipCode}` is a public, DB-backed reference-data endpoint
+(`data/address/ZipCityMapping` → `ZipCityMappingController` → `ZipCityMappingService` →
+`ZipCityMappingRepository`), following the same public/CSRF-exempt tier as `/v1/allergens` and
+`/v1/ingredients` in `SecurityConfig.java`. It reuses the existing `ZipCode`/`City` `@Embeddable`
+value objects rather than duplicating them, and is seeded in the `dev` profile from
+`zip_city_mappings.sql`. See `docs/BACKEND_ZIP_CITY_LOOKUP.md` for the design rationale.
 
 **Redis-backed rate limiting**: `service/RedisService.java` exposes an atomic Lua incr+TTL script;
 `config/LoginRateLimitFilter.java` uses it to cap login attempts per username and is registered
